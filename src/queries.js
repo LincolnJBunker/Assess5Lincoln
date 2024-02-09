@@ -4,14 +4,18 @@ import { Animal, Human } from './model.js';
 // Get the human with the primary key 2
 export const query1 = await Human.findByPk(2);
 // console.log(query1)
+
 // Get the first animal whose species is "fish"
-export const query2 = await Animal.findAll({
+export const query2 = await Animal.findOne({
     where: { species: 'fish'}
 })
-console.log(query2)
+// console.log(query2)
 
 // Get all animals belonging to the human with primary key 5
-export const query3 = await Animal.findAll
+export const query3 = await Animal.findAll({
+    where: { human_id: '5'}
+})
+// console.log(query3)
 
 // Get all animals born in a year greater than (but not equal to) 2015.
 export const query4 = await Animal.findAll({
@@ -20,6 +24,7 @@ export const query4 = await Animal.findAll({
     }
 })
 // console.log(query4)
+
 // Get all the humans with first names that start with "J"
 export const query5 = await Human.findAll({
     where: {
@@ -42,14 +47,30 @@ export const query7 = await Animal.findAll({
         species: { [Op.or]: ["fish", "rabbit"] }
     }
 })
-console.log(query7)
+// console.log(query7)
+
 // Get all the humans who DON'T have an email address that contains "gmail"
-export const query8 = null;
+export const query8 = await Human.findAll({
+    where: {
+        email: { [Op.notLike]: '%gmail%'}
+    }
+})
+// console.log(query8)
 
 // Continue reading the instructions before you move on!
 
 // Print a directory of humans and their animals
-export async function printHumansAndAnimals() {}
+export async function printHumansAndAnimals() {
+    const pairs = await Human.findAll({ include: Animal });
+    for (const pair of pairs) {
+        const animals = pair.animals;
+        console.log(pair.getFullName())
+        for (const animal of animals) {
+            console.log(animal.name, animal.species)
+        }
+    }
+}
+printHumansAndAnimals()
 
 // Return a Set containing the full names of all humans
 // with animals of the given species.
