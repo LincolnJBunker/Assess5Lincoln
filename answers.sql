@@ -2,7 +2,7 @@
 SELECT email FROM customers ORDER BY email;
 
 //problem 2
-dumb
+SELECT id FROM orders WHERE customer_id = (SELECT id FROM customers WHERE id = 1);
 
 //problem 3
 SELECT SUM(num_cupcakes) FROM orders WHERE processed = 'f';
