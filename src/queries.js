@@ -70,12 +70,24 @@ export async function printHumansAndAnimals() {
         }
     }
 }
-printHumansAndAnimals()
+
 
 // Return a Set containing the full names of all humans
 // with animals of the given species.
 export async function getHumansByAnimalSpecies(species) {
     const humans = new Set();
-    humans.add(humanName)
+    //add humans from data... but in which way?
+    humans.add('Bob Personne')
+    humans.add('Jane Doe')
+    humans.add('Jasmine Debugger')
+    humans.add('John Doe')
+    humans.add('Jane Hacks')
+    //need to write an if statement that if humans own one of species, to print them out
+    if (species === Animal.species) {
+        return humans.includes()
+    }
+
+    console.log(humans)
 }
-console.log(await getHumansByAnimalSpecies('dog'))
+
+console.log(getHumansByAnimalSpecies('dog'))
